@@ -6,7 +6,7 @@
 /*   By: igomes-h <italogholanda@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 09:12:54 by italo             #+#    #+#             */
-/*   Updated: 2022/04/03 09:34:00 by igomes-h         ###   ########.fr       */
+/*   Updated: 2022/04/03 10:48:03 by igomes-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,14 @@
 void	print_usage(void)
 {
 	ft_printf("\n\nCLIENT USAGE:\n\n./client <PID> \"<MESSAGE>\"\n\n");
+}
+
+void	handle_signal(int signal, siginfo_t *info, void *context)
+{
+	if (signal)
+		ft_printf("Received ...\n");
+	if (info || context)
+		return ;
 }
 
 static void	mt_kill(int pid, char *str)
@@ -42,6 +50,7 @@ static void	mt_kill(int pid, char *str)
 int	main(int argc, char **argv)
 {
 	int	pid;
+	struct sigaction	sigas;
 
 	if (argc != 3)
 	{
@@ -49,7 +58,10 @@ int	main(int argc, char **argv)
 		exit(1);
 	}
 	pid = ft_atoi(argv[1]);
-	ft_printf("\nPID: %i\n", pid);
+	sigas.sa_sigaction = handle_signal;
+	sigas.sa_flags = SA_SIGINFO;
+	sigaction(SIGUSR1, &sigas, 0);
+	sigaction(SIGUSR2, &sigas, 0);
 	mt_kill(pid, argv[2]);
 	ft_printf("\nProcess %i received %s\n", pid, argv[2]);
 	return (0);

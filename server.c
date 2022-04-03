@@ -6,7 +6,7 @@
 /*   By: igomes-h <italogholanda@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 09:13:08 by italo             #+#    #+#             */
-/*   Updated: 2022/04/03 09:35:25 by igomes-h         ###   ########.fr       */
+/*   Updated: 2022/04/03 10:30:42 by igomes-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void	handle_action(int sig, siginfo_t *info, void *context)
 	{
 		i = 0;
 		ft_putchar_fd(c, 1);
+		kill(info->si_pid, SIGUSR1);
 		c = 0;
 	}
 	else
