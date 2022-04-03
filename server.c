@@ -6,7 +6,7 @@
 /*   By: igomes-h <italogholanda@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 09:13:08 by italo             #+#    #+#             */
-/*   Updated: 2022/04/03 10:30:42 by igomes-h         ###   ########.fr       */
+/*   Updated: 2022/04/03 10:58:28 by igomes-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	main(void)
 {
 	struct sigaction	s_sigaction;
 
-	ft_printf("\nPID: %i\n", getpid());
+	ft_printf("\n\033[1;32mPID: \033[1;37m%i\n", getpid());
 	s_sigaction.sa_sigaction = handle_action;
 	s_sigaction.sa_flags = SA_SIGINFO;
 	sigaction(SIGUSR1, &s_sigaction, 0);

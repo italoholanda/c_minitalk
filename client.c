@@ -6,7 +6,7 @@
 /*   By: igomes-h <italogholanda@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 09:12:54 by italo             #+#    #+#             */
-/*   Updated: 2022/04/03 10:51:13 by igomes-h         ###   ########.fr       */
+/*   Updated: 2022/04/03 11:05:43 by igomes-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,14 @@
 
 void	print_usage(void)
 {
-	ft_printf("\n\nCLIENT USAGE:\n\n./client <PID> \"<MESSAGE>\"\n\n");
+	ft_printf("\033[1;31m");
+	ft_printf("\nCLIENT USAGE:\n\033[1;37m./client <PID> \"<MESSAGE>\"\n\n");
 }
 
 void	handle_signal(int signal, siginfo_t *info, void *context)
 {
 	if (signal)
-		ft_printf("Received ...\n");
+		ft_printf("\033[0;33mReceived ...\n\033[1;37m");
 	if (info || context)
 		return ;
 }
@@ -63,6 +64,6 @@ int	main(int argc, char **argv)
 	sigaction(SIGUSR1, &sigas, 0);
 	sigaction(SIGUSR2, &sigas, 0);
 	mt_kill(pid, argv[2]);
-	ft_printf("\nProcess %i received %s\n", pid, argv[2]);
+	ft_printf("\nProcess [%i] received \"%s\"\n", pid, argv[2]);
 	return (0);
 }
