@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   server.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: igomes-h <italogholanda@gmail.com>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/03 09:13:08 by italo             #+#    #+#             */
+/*   Updated: 2022/04/03 09:35:25 by igomes-h         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minitalk.h"
 
-static void handle_action(int sig, siginfo_t *info, void *context)
+static void	handle_action(int sig, siginfo_t *info, void *context)
 {
 	static int				i = 0;
 	static unsigned char	c = 0;
@@ -14,14 +26,13 @@ static void handle_action(int sig, siginfo_t *info, void *context)
 	}
 	else
 		c <<= 1;
-
-	if (!info)	
+	if (!info)
 		(void)context;
 }
 
-int main(void)
+int	main(void)
 {
-	struct sigaction s_sigaction;
+	struct sigaction	s_sigaction;
 
 	ft_printf("\nPID: %i\n", getpid());
 	s_sigaction.sa_sigaction = handle_action;
@@ -30,5 +41,5 @@ int main(void)
 	sigaction(SIGUSR2, &s_sigaction, 0);
 	while (1)
 		pause();
-	return 0;
+	return (0);
 }

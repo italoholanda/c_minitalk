@@ -18,13 +18,16 @@ DEBUG:= -fsanitize=address
 all: $(BIN)
 
 $(BIN):
+	make -C ./libft
 	$(CC) $(SRC_SERVER) -o server $(SFLAG) $(INCLUDE) $(DEBUG)
 	$(CC) $(SRC_CLIENT) -o client $(SFLAG) $(INCLUDE) $(DEBUG)
 
 clean:
+	make -C ./libft clean
 	rm -rf $(BIN) --verbose
 
 fclean: clean
+	make -C ./libft fclean
 
 re: fclean all
 
