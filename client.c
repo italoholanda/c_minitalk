@@ -6,7 +6,7 @@
 /*   By: igomes-h <italogholanda@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 09:12:54 by italo             #+#    #+#             */
-/*   Updated: 2022/04/03 10:48:03 by igomes-h         ###   ########.fr       */
+/*   Updated: 2022/04/03 10:51:13 by igomes-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	mt_kill(int pid, char *str)
 
 int	main(int argc, char **argv)
 {
-	int	pid;
+	int					pid;
 	struct sigaction	sigas;
 
 	if (argc != 3)
