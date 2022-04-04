@@ -43,7 +43,7 @@ static void	mt_kill(int pid, char *str)
 				kill(pid, SIGUSR2);
 			else
 				kill(pid, SIGUSR1);
-			usleep(100);
+			usleep(10000);
 		}
 	}
 }
