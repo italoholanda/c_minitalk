@@ -6,7 +6,7 @@
 /*   By: igomes-h <italogholanda@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 09:12:54 by italo             #+#    #+#             */
-/*   Updated: 2022/04/03 11:05:43 by igomes-h         ###   ########.fr       */
+/*   Updated: 2022/04/05 17:18:42 by igomes-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,18 @@ void	print_usage(void)
 	ft_printf("\nCLIENT USAGE:\n\033[1;37m./client <PID> \"<MESSAGE>\"\n\n");
 }
 
-void	handle_signal(int signal, siginfo_t *info, void *context)
+void	print_response(int signal, siginfo_t *info, void *ctx)
 {
 	if (signal)
 		ft_printf("\033[0;33mReceived ...\n\033[1;37m");
-	if (info || context)
+	if (info || ctx)
 		return ;
 }
 
-static void	mt_kill(int pid, char *str)
+/*
+	This convertss a string to a sequence of bits
+*/
+static void	send_string(int pid, char *str)
 {
 	int		i;
 	int		j;
@@ -59,11 +62,11 @@ int	main(int argc, char **argv)
 		exit(1);
 	}
 	pid = ft_atoi(argv[1]);
-	sigas.sa_sigaction = handle_signal;
+	sigas.sa_sigaction = print_response;
 	sigas.sa_flags = SA_SIGINFO;
 	sigaction(SIGUSR1, &sigas, 0);
 	sigaction(SIGUSR2, &sigas, 0);
-	mt_kill(pid, argv[2]);
+	send_string(pid, argv[2]);
 	ft_printf("\nProcess [%i] received \"%s\"\n", pid, argv[2]);
 	return (0);
 }

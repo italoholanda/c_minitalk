@@ -6,13 +6,17 @@
 /*   By: igomes-h <italogholanda@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 09:13:08 by italo             #+#    #+#             */
-/*   Updated: 2022/04/03 10:58:28 by igomes-h         ###   ########.fr       */
+/*   Updated: 2022/04/05 17:18:22 by igomes-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-static void	handle_action(int signal, siginfo_t *info, void *context)
+/*
+	This converts a sequence of bits to a char and then
+	writes it to the screen and sends a response to the client
+*/
+static void	print_signal(int signal, siginfo_t *info, void *ctx)
 {
 	static int				i = 0;
 	static unsigned char	c = 0;
@@ -28,7 +32,7 @@ static void	handle_action(int signal, siginfo_t *info, void *context)
 	else
 		c <<= 1;
 	if (!info)
-		(void)context;
+		(void)ctx;
 }
 
 int	main(void)
@@ -36,7 +40,7 @@ int	main(void)
 	struct sigaction	sigas;
 
 	ft_printf("\n\033[1;32mPID: \033[1;37m%i\n", getpid());
-	sigas.sa_sigaction = handle_action;
+	sigas.sa_sigaction = print_signal;
 	sigas.sa_flags = SA_SIGINFO;
 	sigaction(SIGUSR1, &sigas, 0);
 	sigaction(SIGUSR2, &sigas, 0);
